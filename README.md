@@ -1,5 +1,17 @@
 # Terraform managed Custom Domain Website
 
+```shell
+terraform plan -var_file="example.com.tfvars"
+```
+
+```shell
+terraform plan \
+  -var "domain_name=example.com" \
+  -var "bucket_name=example.com" \
+  -var "prefix=example_com" \
+  -var "github_repo=user_name/repo_name"
+```
+
 I am assuming the domain is registered with Route 53. If not, [additional steps](#google-domains-configuration) are required for domains not registered with AWS (e.g. google domains)  
 
 ## AWS Components
