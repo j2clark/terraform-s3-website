@@ -1,6 +1,6 @@
 # Terraform managed Custom Domain Website
 
-[Domains not registered with AWS (e.g. google domains)](#google-domains-configuration)  
+I am assuming the domain is registered with Route 53. If not, [additional steps](#google-domains-configuration) are required for domains not registered with AWS (e.g. google domains)  
 
 ## AWS Components
 
@@ -13,10 +13,12 @@ AWS Components
 * Codebuild
 
 ## Features
-
-After copying files to S3, the buildspec creates a Cloudfront invalidation for path '/*' 
+ 
+* After copying files to S3, the buildspec creates a Cloudfront invalidation for path '/*' 
 
 ## Gotchas/Requirements
+
+This template uses terraform, so of course you will need to have it setup, and be familiar with its workings. 
 
 Terraform interacts with AWS and Github. Both of these environments (AWS CLI, AWS credentials, github authorization) need to be setup before scripts can be run.  
 
