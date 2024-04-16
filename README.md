@@ -1,7 +1,7 @@
 # Terraform managed Custom Domain Website
 
 ```shell
-terraform plan -var_file="example.com.tfvars"
+terraform plan -var-file="example.com.tfvars"
 ```
 
 ```shell
