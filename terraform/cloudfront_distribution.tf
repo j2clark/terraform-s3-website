@@ -36,8 +36,15 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.www_redirect.arn
     }
-
   }
+
+  custom_error_response {
+    error_code = 403
+    error_caching_min_ttl = 300
+    response_code = 200
+    response_page_path = "/index.html"
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -57,8 +64,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   enhancing user experience and consolidating domain authority.
 */
 resource "aws_cloudfront_function" "www_redirect" {
-#  name    = "${local.prefix}-www-redirect"
-  name    = "${var.prefix}-www-redirect"
+  name    = "${replace(var.domain_name, ".", "_")}-www-redirect"
   runtime = "cloudfront-js-1.0"
   code    = file("./cloudfront-function.js")
   publish = true

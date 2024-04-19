@@ -8,7 +8,6 @@ terraform plan -var-file="example.com.tfvars"
 terraform plan \
   -var "domain_name=example.com" \
   -var "bucket_name=example.com" \
-  -var "prefix=example_com" \
   -var "github_repo=user_name/repo_name"
 ```
 
@@ -17,7 +16,7 @@ I am assuming the domain is registered with Route 53. If not, [additional steps]
 ## AWS Components
 
 AWS Components 
-* S3  
+* S3
 * Route 53
 * Certificate Manager (ACM)
 * Cloudfront
@@ -36,7 +35,9 @@ Terraform interacts with AWS and Github. Both of these environments (AWS CLI, AW
 
 The S3 bucket as configured in this example is not versioned.
 
-Terraform state files start to get tricky if you alter them after initial deployment. Personally I found a complete tear-down and recreation preferable over terraform commands   
+Terraform state files start to get tricky if you alter them after initial deployment. Personally I found a complete tear-down and recreation preferable over terraform commands
+
+All objects in S3 bucket must be deleted before destroy is allowed to remove the bucket   
 
 ## Google Domains Configuration
 

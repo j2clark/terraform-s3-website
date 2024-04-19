@@ -1,5 +1,5 @@
 resource "aws_iam_role" "codebuild_role" {
-  name = "codebuild-role-${var.prefix}-${var.branch}"
+  name = "codebuild-role-${replace(var.domain_name, ".", "_")}-${var.branch}"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -17,7 +17,7 @@ resource "aws_iam_role" "codebuild_role" {
 }
 
 resource "aws_iam_policy" "codebuild_policy" {
-  name = "codebuild-policy-${var.prefix}-${var.branch}"
+  name = "codebuild-policy-${replace(var.domain_name, ".", "_")}-${var.branch}"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -30,8 +30,8 @@ resource "aws_iam_policy" "codebuild_policy" {
         "logs:PutLogEvents"
       ],
       "Resource": [
-        "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${var.prefix}-${var.branch}*",
-        "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${var.prefix}-${var.branch}*:*"
+        "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${replace(var.domain_name, ".", "_")}-${var.branch}*",
+        "arn:aws:logs:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${replace(var.domain_name, ".", "_")}-${var.branch}*:*"
       ]
     },
     {
@@ -58,7 +58,7 @@ resource "aws_iam_policy" "codebuild_policy" {
         "codebuild:BatchPutCodeCoverages"
       ],
       "Resource": [
-        "arn:aws:codebuild:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:report-group/codebuild-policy-${var.prefix}-${var.branch}*"
+        "arn:aws:codebuild:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:report-group/codebuild-policy-${replace(var.domain_name, ".", "_")}-${var.branch}*"
       ]
     },
     {
